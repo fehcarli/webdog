@@ -56,13 +56,13 @@ public class BookingController {
 
 	@RequestMapping(value="/roomTypes", method= RequestMethod.GET, produces={"text/plain","application/json"})
 	public @ResponseBody
-    Iterable<RoomType> getRoomTypes(){
+    	Iterable<RoomType> getRoomTypes(){
 		return roomTypes.findAll();
 	}
 
 	@RequestMapping(value="/new/{hotel_id}", method= RequestMethod.GET, produces={"text/plain","application/json"})
 	public @ResponseBody
-    Booking bookRoomJSON(@PathVariable("hotel_id") long hotel_id){
+    	Booking bookRoomJSON(@PathVariable("hotel_id") long hotel_id){
 
 		int numberRooms = 2;
 		long roomType = 1;
@@ -111,8 +111,11 @@ public class BookingController {
 
 	@RequestMapping(value="/new/{hotel_id}", method= RequestMethod.GET)
 	@AllowedForSystemUsers
-	public String bookRoom(Model model, @PathVariable("hotel_id") long hotel_id, @ModelAttribute("booking") Booking booking, @ModelAttribute("numberRooms") int numberRooms,
-                           @ModelAttribute("roomType") long roomType, Authentication authentication){
+	public String bookRoom(Model model, @PathVariable("hotel_id") long hotel_id, 
+			       @ModelAttribute("booking") Booking booking, 
+			       @ModelAttribute("numberRooms") int numberRooms, 
+			       @ModelAttribute("roomType") long roomType, 
+			       Authentication authentication){
 
 		RoomType rt = roomTypes.findOne(roomType);
 		List<Date> dates = getDates(booking);
@@ -173,7 +176,9 @@ public class BookingController {
 
 	@RequestMapping(value="/search", method= RequestMethod.POST)
 	@AllowedForSystemUsers
-	public String searchRooms(@ModelAttribute Booking booking, Model model, @RequestParam("roomType") long roomType, @RequestParam("numberRooms") int numberRooms) {
+	public String searchRooms(@ModelAttribute Booking booking, Model model, 
+				  @RequestParam("roomType") long roomType, 
+				  @RequestParam("numberRooms") int numberRooms) {
 
 		RoomType rt = roomTypes.findOne(roomType);
 		List<Room> rooms_available = new ArrayList<Room>();
@@ -222,7 +227,7 @@ public class BookingController {
 
 	@RequestMapping(value="/search", method= RequestMethod.GET, produces={"text/plain","application/json"})
 	public @ResponseBody
-    Iterable<Room> searchRoomsJSON(Date checkin, Date checkout, String rooms, long roomType)
+    	Iterable<Room> searchRoomsJSON(Date checkin, Date checkout, String rooms, long roomType)
 	{		
 		int numberRooms = Integer.parseInt(rooms);
 		Booking booking = new Booking();
