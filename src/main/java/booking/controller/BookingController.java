@@ -24,7 +24,7 @@ import java.util.Map.Entry;
 public class BookingController {
 
 	@Autowired
-    BookingRepository bookings;
+    	BookingRepository bookings;
 
 	@Autowired
 	HotelRepository hotels;
@@ -36,7 +36,7 @@ public class BookingController {
 	UserRepository users;
 
 	@Autowired
-    RoomTypeRepository roomTypes;
+    	RoomTypeRepository roomTypes;
 
 	@RequestMapping(method= RequestMethod.GET)
 	@AllowedForHotelManager
