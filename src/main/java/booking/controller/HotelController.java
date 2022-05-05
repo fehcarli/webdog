@@ -28,10 +28,10 @@ public class HotelController {
 	HotelRepository hotels;
 
 	@Autowired
-    CategoryRepository categories;
+    	CategoryRepository categories;
 
 	@Autowired
-    RoomTypeRepository roomTypes;
+    	RoomTypeRepository roomTypes;
 
 	@Autowired
 	RoomRepository rooms;
@@ -46,7 +46,7 @@ public class HotelController {
 	CommentRepository comments;
 	
 	@Autowired
-    BookingRepository bookings;
+    	BookingRepository bookings;
 
 	@RequestMapping(method= RequestMethod.GET)
 	public String index(Model model) {
@@ -56,7 +56,7 @@ public class HotelController {
 
 	@RequestMapping(method= RequestMethod.GET, produces={"text/plain","application/json"})
 	public @ResponseBody
-    Iterable<Hotel> indexJSON(Model model) {
+    	Iterable<Hotel> indexJSON(Model model) {
 		return hotels.findAll();
 	}
 
@@ -85,7 +85,7 @@ public class HotelController {
 		Iterable<Comment> hotel_comments = comments.getComments(id);
     	
 		model.addAttribute("booking", new Booking());
-    	model.addAttribute("comments", hotel_comments);
+    		model.addAttribute("comments", hotel_comments);
 		model.addAttribute("hotel", hotel );
 		model.addAttribute("reply", new Comment());
 		model.addAttribute("users", users.findAll());
@@ -105,7 +105,7 @@ public class HotelController {
 
 	@RequestMapping(value="{id}", method= RequestMethod.GET, produces={"text/plain","application/json"})
 	public @ResponseBody
-    Hotel showJSON(@PathVariable("id") long id, Model model) {
+    	Hotel showJSON(@PathVariable("id") long id, Model model) {
 		Hotel hotel = hotels.findOne(id);
 		if( hotel == null )
 			throw new HotelNotFoundException();
@@ -206,17 +206,17 @@ public class HotelController {
 	public String searchHotel(Model model, @RequestParam("searchString") String searchString)
 	{
 		Iterator<Hotel> ithotels = hotels.findAll().iterator();
-    	List<Hotel> hotelsList = new ArrayList<Hotel>();
+    		List<Hotel> hotelsList = new ArrayList<Hotel>();
     	    	
-    	while(ithotels.hasNext())
-    	{
-    		Hotel h = ithotels.next();
-    		if(h.getName().toLowerCase().contains(searchString.toLowerCase()))
+    		while(ithotels.hasNext())
+    		{
+    			Hotel h = ithotels.next();
+    			if(h.getName().toLowerCase().contains(searchString.toLowerCase()))
     			hotelsList.add(h);
-    	}				
+    		}				
     	
-    	model.addAttribute("hotels", hotelsList);
-    	return "hotels/index";
+    		model.addAttribute("hotels", hotelsList);
+    		return "hotels/index";
 	}
 	
 	@RequestMapping(value="{id}/map", method= RequestMethod.POST)
@@ -227,7 +227,7 @@ public class HotelController {
 		model.addAttribute("end_date", booking.getEnd_date());
 		model.addAttribute("hotel", hotels.findOne(id));		
 		model.addAttribute("occupancy", getOccupancy(hotels.findOne(id), booking.getBegin_date(), booking.getEnd_date()));
-    	return "hotels/map";
+    		return "hotels/map";
 	}
 
 	public Map<Room, Map<Date, Boolean>> getOccupancy(Hotel hotel, Date begining, Date end)
@@ -282,7 +282,7 @@ public class HotelController {
 	
 	 private User getCurrentUser(){
 	    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-			CustomUserDetail myUser= (CustomUserDetail) auth.getPrincipal(); 
-			return myUser.getUser();
-	    }
+		CustomUserDetail myUser= (CustomUserDetail) auth.getPrincipal(); 
+		return myUser.getUser();
+	 }
 }
